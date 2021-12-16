@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.get('/decks', DeckController.getAll);
 app.get('/deck/:id', DeckController.getById);
 app.get('/cards', CardController.getAll);
+app.get('/card/:id', CardController.getById);
 
 app.post('/deck', DeckController.create);
 
