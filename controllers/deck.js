@@ -22,8 +22,19 @@ const create = rescue(async (req, res) => {
   res.status(201).json(createdDeck);
 })
 
+const remove = rescue(async (req, res) => {
+  const { id } = req.params;
+  const isValid = await deckServices.canRemove(id);
+  if (isValid.message) return res.status(isValid.status).json({ message: isValid.message });
+  
+  const deleted = await Deck.findOne({ where: { id } });
+  await Deck.destroy({ where: { id } });
+  res.status(200).json({ message: 'Deck successfully deleted', deleted });
+})
+
 module.exports = {
   getAll,
   getById,
   create,
+  remove,
 };

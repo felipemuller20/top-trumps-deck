@@ -12,9 +12,14 @@ const validateEntries = (entries) => {
 const validateExists = async (entries) => {
   const { name } = entries;
   const exists = await Deck.findOne({ where: { name } });
-  if (exists.dataValues.name == name) return { status: 400, message: 'Deck already exists.' };
+  if (exists && exists.dataValues.name == name) return { status: 400, message: 'Deck already exists.' };
   return false;
-  
+}
+
+const canRemove = async (id) => {
+  const exists = await Deck.findOne({ where: { id } });
+  if (!exists) return { status: 400, message: 'Deck does not exist.' };
+  return false;
 }
 
 const isValid = async (entries) => {
@@ -27,4 +32,5 @@ const isValid = async (entries) => {
 
 module.exports = {
   isValid,
+  canRemove,
 }

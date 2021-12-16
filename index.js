@@ -16,4 +16,6 @@ app.get('/deck/:id', DeckController.getById);
 
 app.post('/deck', DeckController.create);
 
+app.delete('/deck/:id', DeckController.remove);
+
 app.listen(PORT, () => console.log(`Server listen on port ${PORT}`));
