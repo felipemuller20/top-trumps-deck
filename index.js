@@ -14,4 +14,6 @@ app.use(bodyParser.json());
 app.get('/decks', DeckController.getAll);
 app.get('/deck/:id', DeckController.getById);
 
+app.post('/deck', DeckController.create);
+
 app.listen(PORT, () => console.log(`Server listen on port ${PORT}`));
