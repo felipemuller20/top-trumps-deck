@@ -1,15 +1,24 @@
 const rescue = require('express-rescue');
 const deckServices = require('../services/deck');
-const { Deck } = require('../models');
+const { Deck, Card } = require('../models');
 
 const getAll = rescue(async (_req, res) => {
-  const decks = await Deck.findAll();
+  const decks = await Deck.findAll({
+    include: [
+      { model: Card, as: 'cards', through: { attributes: [] } },
+    ]
+  });
   return res.status(200).json(decks);
 });
 
 const getById = rescue(async (req, res) => {
   const { id } = req.params;
-  const deck = await Deck.findByPk(id);
+  const deck = await Deck.findOne({
+    where: { id },
+    include: [
+      { model: Card, as: 'cards', through: { attributes: [] } },
+    ]
+  });
   if (!deck) return res.status(400).json({ message: 'Deck does not exist' });
   res.status(200).json(deck);
 })
