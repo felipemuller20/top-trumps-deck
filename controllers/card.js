@@ -37,8 +37,12 @@ const create = rescue(async (req, res) => {
 
 const remove = rescue(async (req, res) => {
   const { id } = req.params;
+  const { password } = req.body;
   const isValid = await CardServices.canRemove(id);
   if (isValid.message) return res.status(isValid.status).json({ message: isValid.message });
+
+  if(!password || password !== 'aiiipapaiii') return res
+    .status(401).json({ message: 'Invalid Password. Only the administrator can remove a card.' })
   
   const deleted = await Card.findOne({ where: { id } });
   await Card.destroy({ where: { id } });
