@@ -5,6 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 const DeckController = require('./controllers/deck');
 const CardController = require('./controllers/card');
+const DeckCardController = require('./controllers/deckCard');
 
 const app = express();
 const PORT = process.env.PORT || 3001
@@ -16,6 +17,7 @@ app.get('/decks', DeckController.getAll);
 app.get('/deck/:id', DeckController.getById);
 app.get('/cards', CardController.getAll);
 app.get('/card/:id', CardController.getById);
+app.get('/decks-cards', DeckCardController.getAll);
 
 app.post('/deck', DeckController.create);
 app.post('/card', CardController.create);
