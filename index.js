@@ -18,6 +18,7 @@ app.get('/cards', CardController.getAll);
 app.get('/card/:id', CardController.getById);
 
 app.post('/deck', DeckController.create);
+app.post('/card', CardController.create);
 
 app.delete('/deck/:id', DeckController.remove);
 
