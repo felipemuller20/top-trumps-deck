@@ -21,5 +21,6 @@ app.post('/deck', DeckController.create);
 app.post('/card', CardController.create);
 
 app.delete('/deck/:id', DeckController.remove);
+app.delete('/card/:id', CardController.remove);
 
 app.listen(PORT, () => console.log(`Server listen on port ${PORT}`));

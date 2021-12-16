@@ -36,6 +36,12 @@ const validateDeckId = entries => {
   return false;
 }
 
+const canRemove = async (id) => {
+  const exists = await Card.findOne({ where: { id } });
+  if (!exists) return { status: 400, message: 'Card does not exist.' };
+  return false;
+}
+
 const isValid = async (entries) => {
   const validName = await validateName(entries);
   if (validName) return validName;
@@ -50,4 +56,5 @@ const isValid = async (entries) => {
 
 module.exports = {
   isValid,
+  canRemove,
 }
