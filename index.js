@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 
 require('dotenv').config();
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3001
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/images', express.static(path.join(__dirname, './', 'images')));
 
 app.get('/decks', DeckController.getAll);
 app.get('/deck/:id', DeckController.getById);
